@@ -18,6 +18,32 @@ main > .container {
     font-style: italic;
 }
 
+.carousel {
+    width: 400px;
+    margin: 0 auto;
+
+    border-radius: 24px;
+}
+
+.carousel-inner {
+    border-radius: 22px;
+
+    box-shadow: 0 0 20px 1px rgba(0, 0, 0, 0.44);
+}
+
+.carousel-caption {
+    background-color: rgba(0, 0, 0, 0.7);
+
+    border-radius: 12px;
+}
+
+.slider_baze {
+    width: 400px;
+    height: 220px;
+
+    object-fit: cover;
+}
+
 /* add sorting icons to gridview sort links */
 a.asc:after, a.desc:after {
     content: '';

@@ -2,6 +2,8 @@
 
 namespace app\controllers;
 
+use app\models\Order;
+use app\models\Rega;
 use Yii;
 use yii\filters\AccessControl;
 use yii\web\Controller;
@@ -86,6 +88,23 @@ class SiteController extends Controller
         ]);
     }
 
+    public function actionRega()
+    {
+        $model = new Rega();
+
+        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+            if ($user = $model->signUp()) {
+                if (Yii::$app->getUser()->login($user)) {
+                    return Yii::$app->response->redirect(['site/index']);
+                }
+            }
+        }
+
+        return $this->render('rega', [
+            'model' => $model,
+        ]);
+    }
+
     /**
      * Logout action.
      *
@@ -124,5 +143,24 @@ class SiteController extends Controller
     public function actionAbout()
     {
         return $this->render('about');
+    }
+
+    public function actionAdmin()
+    {
+        return $this->render('admin');
+    }
+
+    public function actionCart()
+    {
+        return $this->render('cart');
+    }
+
+    public function actionOrders()
+    {
+        $orders = Order::find()->with('orderItems')->where(['user_id' => Yii::$app->user->id])->orderBy('created_at DESC')->all();
+
+        return $this->render('orders', [
+            'orders' => $orders,
+        ]);
     }
 }
